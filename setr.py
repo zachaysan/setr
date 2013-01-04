@@ -40,3 +40,73 @@ class FastRange:
     
     def __min__(self):
         return self.n
+
+
+class MultiRange(object):
+    def __init__(self, ranges=None):
+        self.ranges = ranges or []
+
+    def add_range(self, r):
+        self.ranges.append(r)
+    
+    def flatten(self):
+        self.ranges = self.safely_flatten()
+
+    def safely_flatten(self):
+        new_ranges = []
+        for r in self.ranges:
+            new_ranges = [r for r in self._get_range_(new_ranges, r)]
+        return MultiRange(new_ranges)
+
+    def _get_range_(self, new_ranges, r):
+        for nr in new_ranges:
+            overlapping_range = self._overlapping_range_(r, nr)
+            if overlapping_range:
+                yield overlapping_range
+                return
+            yield nr
+        yield r
+
+    def _overlapping_range_(self, considered_range, prev_range):
+        """ Considers a new range in a series of ranges.
+        If there is overlap with the previous range it joins 
+        the two.
+        """
+        if min(considered_range) in prev_range:
+            m = max(max(considered_range), max(prev_range))
+            return FastRange(min(prev_range), m)
+        return False
+
+    def __contains__(self, item):
+        for r in self.ranges:
+            if item in r:
+                return True
+        return False
+    
+    def __min__(self):
+        return min([min(r) for r in self.ranges])
+    
+    def __max__(self):
+        return max([max(r) for r in self.ranges])
+
+def main():
+    # These should be testified. Heh.
+    f = FastRange(20, 50)
+    g = FastRange(60, 100)
+    j = FastRange(80, 150)
+    h = FastRange(90, 120)
+    mr = MultiRange()
+    mr.add_range(f)
+    mr.add_range(g)
+    mr.add_range(j)
+    mr.add_range(h)
+    print 55 in mr
+    print 95 in mr
+    print mr.__dict__
+    mr2 = mr.safely_flatten()
+    print mr2.__dict__
+    for r in mr2.ranges:
+        print r.__dict__
+
+if __name__=='__main__':
+    main()
