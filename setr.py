@@ -47,7 +47,9 @@ class MultiRange(object):
         self.ranges = ranges or []
 
     def add_range(self, r):
+        """ Adds a comprising range and sorts based on min value. """
         self.ranges.append(r)
+        self.ranges.sort(key=lambda r: min(r))
     
     def flatten(self):
         self.ranges = self.safely_flatten()
