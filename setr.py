@@ -57,8 +57,12 @@ class MultiRange(object):
     def safely_flatten(self):
         new_ranges = []
         for r in self.ranges:
-            new_ranges = [r for r in self._get_range_(new_ranges, r)]
+            new_ranges = [nr for nr in self._get_range_(new_ranges, r)]
         return MultiRange(new_ranges)
+
+    def count_in(self, item):
+        """ Counts the number of ranges that the compared item matches """
+        return sum([item in r for r in self.ranges])
 
     def _get_range_(self, new_ranges, r):
         for nr in new_ranges:
@@ -102,6 +106,7 @@ def main():
     mr.add_range(g)
     mr.add_range(j)
     mr.add_range(h)
+    print mr.count_in(93)
     print 55 in mr
     print 95 in mr
     print mr.__dict__
