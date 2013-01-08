@@ -53,7 +53,7 @@ class MultiRange(object):
         self.ranges.sort(key=lambda r: min(r))
     
     def flatten(self):
-        self.ranges = self.safely_flatten()
+        self.ranges = self.safely_flatten().ranges
 
     def safely_flatten(self):
         new_ranges = []
@@ -95,34 +95,6 @@ class MultiRange(object):
     
     def __max__(self):
         return max([max(r) for r in self.ranges])
-
-class TimeRange(FastRange):
-    def __init__(self, starting_date, time_delta=None, ending_date=None):
-        if ending_date and time_delta:
-            raise "TimeRange expects one of ending_date or time_delta (both supplied)"
-        elif not (ending_date or time_delta):
-            raise "TimeRange expects one of ending_date or time_delta (none supplied)"
-
-        if not ending_date:
-            ending_date = starting_date + time_delta
-
-        n, m = int(starting_date.strftime("%s")), int(ending_date.strftime("%s"))
-        super(TimeRange, self).__init__(n, m)
-        
-    def __contains__(self, item):
-        return int(item.strftime("%s")) in super(TimeRange, self)
-    
-    def __max__(self, item):
-        mx = max(super(TimeRange, self))
-        return datetime.fromtimestamp(mx)
-
-    def __min__(self, item):
-        mn = min(super(TimeRange, self))
-        return datetime.fromtimestamp(mn)
-    
-    def __iter__(self):
-        for item in super(TimeRange, self):
-            yield dateteim.fromtimestamp(item)
 
 def main():
     # These should be testified. Heh.
