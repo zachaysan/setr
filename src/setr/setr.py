@@ -38,7 +38,7 @@ class FastRange(object):
         return len(self.xrange)
 
     def __max__(self):
-        return self.m
+        return self.m - 1
     
     def __min__(self):
         return self.n
@@ -95,26 +95,3 @@ class MultiRange(object):
     
     def __max__(self):
         return max([max(r) for r in self.ranges])
-
-def main():
-    # These should be testified. Heh.
-    f = FastRange(20, 50)
-    g = FastRange(60, 100)
-    j = FastRange(80, 150)
-    h = FastRange(90, 120)
-    mr = MultiRange()
-    mr.add_range(f)
-    mr.add_range(g)
-    mr.add_range(j)
-    mr.add_range(h)
-    print mr.count_in(93)
-    print 55 in mr
-    print 95 in mr
-    print mr.__dict__
-    mr2 = mr.safely_flatten()
-    print mr2.__dict__
-    for r in mr2.ranges:
-        print r.__dict__
-
-if __name__=='__main__':
-    main()

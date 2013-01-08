@@ -1,1 +1,1 @@
-from setr import FastRange, MultiRange, TimeRange, max, min
+from setr import FastRange, MultiRange, max, min
