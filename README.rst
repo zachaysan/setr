@@ -11,7 +11,7 @@ Yup, but it is small.
 Installation
 ============
 
-` pip install setr `
+pip install setr
 
 TODOs
 =====
