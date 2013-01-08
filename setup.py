@@ -5,8 +5,8 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
-
-version = '0.2.0'
+# In Development, remove when completed
+version = '0.2.1'
 
 install_requires = [
     # http://packages.python.org/distribute/setuptools.html#declaring-dependencies

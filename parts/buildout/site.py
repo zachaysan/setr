@@ -354,7 +354,6 @@ def addsitepackages(known_paths):
         '/usr/local/lib/python2.7/dist-packages/PasteScript-1.7.5-py2.7.egg',
         '/usr/local/lib/python2.7/dist-packages/PasteDeploy-1.5.0-py2.7.egg',
         '/usr/local/lib/python2.7/dist-packages',
-        '/usr/local/lib/python2.7/dist-packages/setr-0.1-py2.7.egg',
         '/usr/local/lib/python2.7/dist-packages',
         '/usr/lib/python2.7/dist-packages',
         '/usr/lib/python2.7/dist-packages/PIL',
